@@ -1,0 +1,19 @@
+{
+  "name": "project_3.0",
+  "version": "1.0.0",
+  "description": "A full stack todo application that uses a NodeJS backend, a SQLite databe and JWT",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch --env-file=.env --experimental-strip-types --experimental-sqlite ./src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

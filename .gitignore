@@ -1,0 +1,49 @@
+# === Node.js ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# === Environment Variables ===
+.env
+.env.local
+.env.*.local
+
+# === Build & Dist ===
+dist/
+build/
+.dev-dist/
+.next/
+out/
+cache/
+tmp/
+
+# === Logs ===
+logs/
+*.log
+*.log.*
+lerna-debug.log*
+
+# === Database ===
+*.sqlite
+*.db
+*.sql
+*.dump
+pgdata/
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
+
+# === IDE / Editor ===
+.vscode/
+.idea/
+*.swp
+
+# === Coverage ===
+coverage/
+
+# === Docker ===
+docker-compose.override.yml
+.docker/
