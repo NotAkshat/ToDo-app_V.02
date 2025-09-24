@@ -16,7 +16,7 @@ db.exec(`
             user_id INTEGER,
             task TEXT,
             completed BOOLEAN DEFAULT 0,
-            FOREIGN KEY(user_id) REFERNCES user(id)
+            FOREIGN KEY(user_id) REFERENCES user(id)
     )
     `);
 

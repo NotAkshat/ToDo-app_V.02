@@ -1,6 +1,11 @@
 import express from 'express';
 import path, { dirname } from 'path'
 import { fileURLToPath } from 'url';
+import authRoutes from './routes/authRoutes.js';
+import todoRoutes from './routes/todoRoutes.js';
+import dotenv from "dotenv";
+dotenv.config();
+
 
 const app = express();
 const PORT =process.env.PORT || 5000
@@ -26,6 +31,9 @@ app.get('/', (req, res) => {
     res.sendStatus(200)
     res.sendFile(path.join( __dirname, 'public', 'index.html'))
 })
+
+app.use('/auth', authRoutes)
+app.use('/todos', todoRoutes)
 
 app.listen(PORT, () => {
     console.log(`Hi from the server ${PORT}`);
