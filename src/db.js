@@ -11,8 +11,13 @@ db.exec(`
     `);
 
 db.exec(`
-    CREATE TABLE todos(
-    id INTEGER,
-    user_id INTEGER,
+        CREATE TABLE todos(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER,
+            task TEXT,
+            completed BOOLEAN DEFAULT 0,
+            FOREIGN KEY(user_id) REFERNCES user(id)
     )
     `);
+
+export default db
