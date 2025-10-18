@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import authRoutes from './routes/authRoutes.js';
 import todoRoutes from './routes/todoRoutes.js';
 import dotenv from "dotenv";
+import authMiddleware from './middleware/authmiddleware.js';
 dotenv.config();
 
 
@@ -33,8 +34,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/auth', authRoutes)
-app.use('/todos', todoRoutes)
-
+app.use('/todos',authMiddleware, todoRoutes)
+ 
 app.listen(PORT, () => {
     console.log(`Hi from the server ${PORT}`);
     

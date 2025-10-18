@@ -1,11 +1,12 @@
 import { DatabaseSync } from 'node:sqlite';
 const db = new DatabaseSync(':memory:');
 
+db.exec('PRAGMA foreign_keys = ON;');
 // Execute SQL statement from strings
 db.exec(`
         CREATE TABLE user (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEST UNIQUE,
+            username TEXT UNIQUE,
             password TEXT
           )
     `);
