@@ -5,20 +5,26 @@ import db from '../db.js';
 
 const router = express.Router();
 
-router.post('/register', (req, res) => { 
+router.post('/register', async (req, res) => { 
     const { username, password } = req.body
     
     const hashPassword = bcrypt.hashSync(password, 8)
 
     try {
-        const insertuser = db.prepare(`INSERT INTO user(username, password)
-        VALUES (?, ?)`)
-        const result = insertuser.run(username, hashPassword)
+        const user = await prisma.user.create({
+            date: {
+                username,
+                password: hashPassword
+            }
+        })
 
         const defaultTodo = `Hello :) Add your first todo! `
-        const insertTodo = db.prepare(`INSERT INTO todos (user_id, task)
-        VALUES (?, ?)`)
-        insertTodo.run(result.lastInsertRowid, defaultTodo)
+        await prisma.todo.create({
+            data: {
+                task: defaultTodo,
+                userId: user.id
+            }
+        })
 
         // create a token 
         const token = jwt.sign({id: result.lastInsertRowid}, process.env.JWT_SECRET, { expiresIn: '24h'} )
@@ -31,7 +37,7 @@ router.post('/register', (req, res) => {
     
 })
 
-router.post('/login', (req, res) => { 
+router.post('/login',async (req, res) => { 
     // we get their email, and we look up the password associated wiith that email in the distance
 
     // but we get it back and see it's encrypted, which means that we cannot compare it to the one the user just trying to login
@@ -40,8 +46,11 @@ router.post('/login', (req, res) => {
     const {username, password} = req.body
 
     try {
-        const getUser = db.prepare('SELECT * FROM user WHERE username = ?')
-        const users = getUser.get(username)
+        const user = await prisma.user.findUnique({
+            where: {
+                username: username
+            }
+        })
 
         // if we cannot find a user associated with that useraname, return out from the function
         if (!users) {return res.status(404).send({message: "user not found"})}
